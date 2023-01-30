@@ -44,11 +44,25 @@
             } else {
                 alert("Já existe usuário com este nome cadastrado");}
         } 
-        //function VerificaSenha (password) {
-          //for (let i = 0 , i < password.length , i++) {
-            //if (password[i] === )
-         // }
-        //}   
+        function VerificaSenha (password) {
+          let numero = 0;
+          let letra = 0;
+          let caractere = 0;
+          for (let i = 0 ; i < password.length ; i++) {
+            for (let j = 48 ; j < 58 ; j++){
+              if (password[i].charCodeAt(0) == j) {
+                numero++;
+              }}
+                for (let k = 65 ; k < 91 ; k++){
+              if (password[i].charCodeAt(0) == k) {
+                letra++;
+              }}
+                for (let l = 97 ; l < 123 ; l++){
+              if (password[i].charCodeAt(0) == l) {
+                letra++;
+              }}
+        } 
+      }
     </script>
 </body>
 </html>
