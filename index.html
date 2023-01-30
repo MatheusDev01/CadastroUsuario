@@ -21,48 +21,80 @@
         <label>Data nascimento</label><br>
         <input type="date" id="date" name="date"><br>
         <br>
-        <input type="button" onclick="CadastrarUsuario(nomecompleto.value , email.value , date.value)" value="Cadastrar">
+        <input type="button" onclick="CadastrarUsuario(nomecompleto.value , email.value , date.value, password.value)" value="Cadastrar">
     </form>
     <script>
-        function Usuarios (NomeCompleto , Email , DataNascimento) {
+         var verificaCadastro = 0;
+        function Usuarios (NomeCompleto , Email , DataNascimento , password) {
             this.NomeCompleto=NomeCompleto
             this.Email=Email
             this.DataNascimento=DataNascimento
+            this.password=password
         }
-        var UsuariosCadastrados = [];
-        function CadastrarUsuario (nomecompleto , email , date , password) {
-            let usuario = new Usuarios (nomecompleto , email , date);
-            let ProcuraUsuario = UsuariosCadastrados.find(ProcuraUsuario => ProcuraUsuario.NomeCompleto === nomecompleto);
-            if (typeof(ProcuraUsuario) == "undefined") {
-              let ProcuraUsuario = UsuariosCadastrados.find(ProcuraUsuario => ProcuraUsuario.Email === email);
-              if (typeof(ProcuraUsuario) == "undefined") {
-                UsuariosCadastrados.push(usuario);
-                alert("Usuário cadastrado com sucesso")
-              } else {
-                alert("Já existe usuário com este Email cadastrado")
-              }
-            } else {
-                alert("Já existe usuário com este nome cadastrado");}
-        } 
         function VerificaSenha (password) {
+          var frase = "Senha inválida, adicione os seguintes tipos de caractere: ";
           let numero = 0;
           let letra = 0;
           let caractere = 0;
           for (let i = 0 ; i < password.length ; i++) {
-            for (let j = 48 ; j < 58 ; j++){
+            let verificador = 0;
+               for (let j = 48 ; j < 58 ; j++){
               if (password[i].charCodeAt(0) == j) {
                 numero++;
+                verificador++;
               }}
                 for (let k = 65 ; k < 91 ; k++){
               if (password[i].charCodeAt(0) == k) {
                 letra++;
+                verificador++;
               }}
                 for (let l = 97 ; l < 123 ; l++){
               if (password[i].charCodeAt(0) == l) {
                 letra++;
+                verificador++;
               }}
+               if (verificador == 0) {
+                caractere++
+               } 
+              } 
+           if (numero == 0) {
+            frase += " >Número"
+           }
+           if (letra == 0) {
+            frase += " >Letra"
+            }
+           if (caractere == 0) {
+            frase += " >Especial"
+           }
+           if (numero == 0 || letra == 0 || caractere == 0) {
+           alert(frase);
+           } else {
+            verificaCadastro++;
+           }
+         }
+        var UsuariosCadastrados = [];
+        function CadastrarUsuario (nomecompleto , email , date , password) {
+          
+            VerificaSenha (password);
+
+            let usuario = new Usuarios (nomecompleto , email , date , password);
+            let ProcuraUsuario = UsuariosCadastrados.find(ProcuraUsuario => ProcuraUsuario.NomeCompleto === nomecompleto);
+            if (typeof(ProcuraUsuario) == "undefined") {
+              let ProcuraUsuario = UsuariosCadastrados.find(ProcuraUsuario => ProcuraUsuario.Email === email);
+              if (typeof(ProcuraUsuario) !== "undefined") {
+                alert("Já existe usuário com este Email cadastrado")
+                verificaCadastro = 0;
+              } else if (verificaCadastro === 1) {
+                UsuariosCadastrados.push(usuario);
+                alert("Usuário cadastrado com sucesso")
+                verificaCadastro = 0;
+               }
+            } else {
+                alert("Já existe usuário com este nome cadastrado");
+                verificaCadastro = 0;
+              }  
         } 
-      }
+        
     </script>
 </body>
 </html>
