@@ -1,0 +1,15 @@
+version: '3'
+
+services:
+  proxy:
+    image: page-nginx
+    build:
+      context: .
+    ports:
+      - "30000:80"
+    networks:
+      - page
+
+networks: 
+  page:
+    driver: bridge

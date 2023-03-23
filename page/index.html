@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cadastro</title>
+    <script type="text/javascript" scr="script.js"></script>
+</head>
+<body>
+    <form>
+        <label>Nome completo</label><br>
+        <input type="text" id="nomecompleto" name="nomecompleto"><br>
+        <br>
+        <label>Email</label><br>
+        <input type="email" id="email" name="email"><br>
+        <br>
+        <label>Senha (Deve conter pelo menos um número, uma letra e um caractere especial)</label><br>
+        <input type="password" id="password" name="password"><br>
+        <br>
+        <label>Data nascimento</label><br>
+        <input type="date" id="date" name="date"><br>
+        <br>
+        <input type="button" onclick="CadastrarUsuario(nomecompleto.value , email.value , date.value)" value="Cadastrar">
+    </form>
+    <script>
+        function Usuarios (NomeCompleto , Email , DataNascimento) {
+            this.NomeCompleto=NomeCompleto
+            this.Email=Email
+            this.DataNascimento=DataNascimento
+        }
+        var UsuariosCadastrados = [];
+        function CadastrarUsuario (nomecompleto , email , date , password) {
+            let usuario = new Usuarios (nomecompleto , email , date);
+            let ProcuraUsuario = UsuariosCadastrados.find(ProcuraUsuario => ProcuraUsuario.NomeCompleto === nomecompleto);
+            if (typeof(ProcuraUsuario) == "undefined") {
+              let ProcuraUsuario = UsuariosCadastrados.find(ProcuraUsuario => ProcuraUsuario.Email === email);
+              if (typeof(ProcuraUsuario) == "undefined") {
+                UsuariosCadastrados.push(usuario);
+                alert("Usuário cadastrado com sucesso")
+              } else {
+                alert("Já existe usuário com este Email cadastrado")
+              }
+            } else {
+                alert("Já existe usuário com este nome cadastrado");}
+        } 
+        //function VerificaSenha (password) {
+          //for (let i = 0 , i < password.length , i++) {
+            //if (password[i] === )
+         // }
+        //}   
+    </script>
+</body>
+</html>
